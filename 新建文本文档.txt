@@ -1,0 +1,77 @@
+package com.ujiuye.dome1;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class A02 {
+    public static void main(String[] args) throws Exception {
+//        picture();
+//        note();
+
+    }
+
+    private static void note() throws IOException {
+        List<File> list = new ArrayList<>();
+        //        利用for循环，增加文件名
+        for (int i = 1; i <= 28; i++) {
+            if (i <= 9) {
+                //是文件名不足10时在前面加上0变为字符串，拼接在一起
+                String s = "0" + i;
+                list.add(new File("E:/下载/cts/第一阶段/day" + s + "/笔记/day" + s + ".md"));
+            } else {
+                list.add(new File("E:/下载/cts/第一阶段/day" + i + "/笔记/day" + i + ".md"));
+            }
+        }
+
+        for (File file : list) {
+//            System.out.println(file.getAbsolutePath());
+            BufferedInputStream bis = new BufferedInputStream(
+                    new FileInputStream(file));
+            BufferedOutputStream bos = new BufferedOutputStream(
+                    new FileOutputStream("D:\\asd\\新建文件夹\\a.md", true));
+            int count;
+            while ((count = bis.read()) != -1) {
+                bos.write(count);
+            }
+            bis.close();
+            bos.close();
+        }
+    }
+
+    private static void picture() throws IOException {
+        List<File> list = new ArrayList<>();
+        //        利用for循环，增加文件名
+        for (int i = 1; i <= 28; i++) {
+            if (i <= 9) {
+                //是文件名不足10时在前面加上0变为字符串，拼接在一起
+                String s = "0" + i;
+                list.add(new File("E:/下载/cts/第一阶段/day" + s + "/笔记/imgs"));
+            } else {
+                list.add(new File("E:/下载/cts/第一阶段/day" + i + "/笔记/imgs"));
+            }
+        }
+//        System.out.println(list);
+        for (File file : list) {
+            if (file.isDirectory()) {
+                File[] files = file.listFiles();
+                for (File file1 : files) {
+                    String name1 = file1.getName();
+                    System.out.println(name1);
+                    BufferedInputStream bis = new BufferedInputStream(
+                            new FileInputStream(file1));
+                    BufferedOutputStream bos = new BufferedOutputStream(
+                            new FileOutputStream("D:\\asd\\新建文件夹\\imgs\\" + name1));
+                    int count;
+                    while ((count = bis.read()) != -1) {
+                        bos.write(count);
+                    }
+                    bis.close();
+                    bos.close();
+                }
+            }
+
+        }
+
+    }
+}
